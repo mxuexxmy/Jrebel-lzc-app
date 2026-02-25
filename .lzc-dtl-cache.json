@@ -1,0 +1,36 @@
+{
+  "name": "JRebel",
+  "package": "xyz.mxue.reverseproxy.jrabel",
+  "description": "Accelerate Java Development With Perforce JRebel",
+  "homepage": "https://www.jrebel.com/",
+  "author": "jrebel",
+  "app_features": [
+    "public_path"
+  ],
+  "subdomain": "jrebel",
+  "version": "0.0.1",
+  "public_paths": [
+    "/"
+  ],
+  "iconPath": "icon.png",
+  "composePath": "docker-compse.yml",
+  "unsupported_platforms": [
+    "ios",
+    "android"
+  ],
+  "lastRouteType": "from_compose",
+  "port_mappings": {
+    "reverseproxy_8888_8888": {
+      "use": true,
+      "type": "http",
+      "path": "/",
+      "targetPath": "/"
+    }
+  },
+  "image_wangdxing_golang-reverseproxy": {
+    "originalImage": "wangdxing/golang-reverseproxy",
+    "pushTarget": "lazycat",
+    "newImageName": "registry.lazycat.cloud/mxuexxmy/wangdxing/golang-reverseproxy:dd6c3a5788f00380",
+    "timestamp": "2025-08-16T14:15:30.033Z"
+  }
+}

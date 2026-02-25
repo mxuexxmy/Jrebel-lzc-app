@@ -1,0 +1,6 @@
+services:
+  jrebel-license-active-server:
+    image: yuxiaoyao520/jrebel-license-active-server:latest
+    container_name: jrebel-license-active-server
+    ports:
+      - "12345:12345"
