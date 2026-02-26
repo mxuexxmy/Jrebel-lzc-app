@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" href="favicon.png">
     <title>JRebel Application</title>
     <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --bg-light: #f7fafc;
+            --radius: 16px;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,64 +23,100 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f6f8fd 0%, #f1f5f9 100%);
+            color: var(--text-main);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 40px 20px;
+            line-height: 1.6;
         }
 
         .container {
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 60px 40px;
-            text-align: center;
-            max-width: 600px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0,0,0,0.05);
+            padding: 50px;
+            max-width: 680px;
             width: 100%;
-            animation: fadeIn 0.6s ease-in;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         .logo {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 30px;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 24px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 48px;
-            font-weight: bold;
+            font-size: 36px;
+            font-weight: 800;
             color: white;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.25);
+            transform: rotate(-5deg);
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: rotate(0deg) scale(1.05);
         }
 
         h1 {
-            color: #333;
-            font-size: 36px;
-            margin-bottom: 15px;
-            font-weight: 700;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .subtitle {
-            color: #666;
-            font-size: 18px;
+            color: var(--text-muted);
+            font-size: 16px;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        .info-box {
+            background: var(--bg-light);
+            border-left: 4px solid var(--primary);
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
             margin-bottom: 40px;
-            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        .info-box p {
+            font-size: 15px;
+            margin: 0;
         }
 
         .features {
@@ -80,126 +127,350 @@
         }
 
         .feature {
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 24px 20px;
+            background: white;
+            border: 1px solid #edf2f7;
+            border-radius: var(--radius);
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
 
         .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.06);
+            border-color: #e2e8f0;
         }
 
         .feature-icon {
-            font-size: 32px;
-            margin-bottom: 10px;
+            font-size: 28px;
+            margin-bottom: 12px;
+            display: inline-block;
         }
 
         .feature-title {
-            color: #333;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 5px;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #1a202c;
         }
 
         .feature-desc {
-            color: #666;
-            font-size: 12px;
+            font-size: 13px;
+            color: var(--text-muted);
         }
 
-        .info-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 12px;
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 24px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .steps-container {
+            position: relative;
             margin-bottom: 30px;
         }
 
-        .info-box h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
+        .step {
+            display: flex;
+            margin-bottom: 24px;
+            position: relative;
         }
 
-        .info-box p {
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 36px;
+            bottom: -16px;
+            width: 2px;
+            background: #e2e8f0;
+        }
+
+        .step-num {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 14px;
-            opacity: 0.9;
-            line-height: 1.6;
+            font-weight: 700;
+            margin-right: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-content {
+            padding-top: 4px;
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+
+        .step-desc {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .step-desc a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .step-desc a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .code-window {
+            background: #1e1e1e;
+            border-radius: 12px;
+            margin: 12px 0;
+            overflow: hidden;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        .code-header {
+            background: #2d2d2d;
+            padding: 10px 16px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .code-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .code-body {
+            padding: 16px;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 14px;
+            color: #d4d4d4;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .code-body .highlight {
+            color: #ce9178;
+        }
+        
+        .code-body .variable {
+            color: #9cdcfe;
+        }
+
+        .step-note {
+            font-size: 13px;
+            color: #a0aec0;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-area {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid #edf2f7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .badge {
-            display: inline-block;
-            background: #4caf50;
-            color: white;
-            padding: 8px 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #e6ffed;
+            color: #0e8a16;
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
-            margin-top: 20px;
         }
 
-        .footer {
-            margin-top: 30px;
-            color: #999;
-            font-size: 12px;
+        .badge::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 8px;
+            background: #28a745;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
         }
 
-        @media (max-width: 600px) {
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(40, 167, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+        }
+
+        .footer-links {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .footer-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
             .container {
-                padding: 40px 20px;
+                padding: 30px 20px;
             }
 
             .features {
                 grid-template-columns: 1fr;
+                gap: 16px;
             }
 
             h1 {
-                font-size: 28px;
+                font-size: 26px;
+            }
+            
+            .footer-area {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="logo">JR</div>
-
-        <h1>JRebel Application</h1>
-        <p class="subtitle">
-            这是基于 JRebel 技术的应用程序<br>
-            Java 应用热部署解决方案
-        </p>
+        <div class="header">
+            <div class="logo">JR</div>
+            <h1>JRebel Application</h1>
+            <p class="subtitle">
+                基于 JRebel 技术的 Java 应用热部署解决方案，<br>让代码更改瞬间生效。
+            </p>
+        </div>
 
         <div class="info-box">
-            <h3>关于 JRebel</h3>
-            <p>
-                JRebel 是一款 Java 开发工具，能够在不重启应用服务器的情况下，
-                实时代码更改立即生效，大幅提升开发效率。
-            </p>
+            <p><strong>关于 JRebel：</strong>一款强大的 Java 开发工具，它能在不重启应用服务器的情况下，让代码和资源的修改实时生效，从而大幅节约等待时间，提升开发体验。</p>
         </div>
 
         <div class="features">
             <div class="feature">
                 <div class="feature-icon">⚡</div>
-                <div class="feature-title">热部署</div>
-                <div class="feature-desc">代码即时生效</div>
+                <div class="feature-title">无缝热部署</div>
+                <div class="feature-desc">代码修改即时生效，告别重启等待</div>
             </div>
             <div class="feature">
                 <div class="feature-icon">🚀</div>
-                <div class="feature-title">高效率</div>
-                <div class="feature-desc">节省重启时间</div>
+                <div class="feature-title">极速开发</div>
+                <div class="feature-desc">保持应用状态，提高编码和调试效率</div>
             </div>
             <div class="feature">
                 <div class="feature-icon">💡</div>
-                <div class="feature-title">易集成</div>
-                <div class="feature-desc">支持主流框架</div>
+                <div class="feature-title">广泛兼容</div>
+                <div class="feature-desc">完美支持主流 Java 框架与应用服务器</div>
             </div>
         </div>
 
-        <div class="badge">运行中</div>
+        <h2 class="section-title">离线激活指南</h2>
+        
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <div class="step-title">生成专属 GUID</div>
+                    <div class="step-desc">使用 <a href="https://www.guidgen.com/" target="_blank" rel="noopener">GUID 生成器</a> 或任意 UUID 工具生成一串随机字符串。</div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <div class="step-title">配置激活地址</div>
+                    <div class="step-desc">
+                        在 IDEA 的 JRebel 设置中，找到 License Server URL 并填入以下地址（请确保激活服务已启动）：
+                        
+                        <div class="code-window">
+                            <div class="code-header">
+                                <div class="code-dot dot-red"></div>
+                                <div class="code-dot dot-yellow"></div>
+                                <div class="code-dot dot-green"></div>
+                            </div>
+                            <div class="code-body">
+                                <span>http://</span><span id="activation-host" class="variable">127.0.0.1</span><span>:12345/</span><span class="highlight">{你的GUID}</span>
+                            </div>
+                        </div>
+                        <div class="step-note">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                            提示：邮箱栏填写任意有效格式的邮箱即可。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <div class="step-title">在线激活</div>
+                    <div class="step-desc">选择在线模式 (Activate online) 并点击 Activate。激活完成前，请保持激活服务运行且不要关闭命令行窗口。</div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <div class="step-title">切换离线模式</div>
+                    <div class="step-desc">激活成功后，在 JRebel 设置中点击 <strong>Work Offline</strong> 切换为离线模式。之后即可关闭激活服务。</div>
+                </div>
+            </div>
+        </div>
 
-        <div class="footer">
-            Powered by JRebel | Build 2025
+        <div class="footer-area">
+            <div class="badge">服务运行中</div>
+            <div class="footer-links">
+                <a href="./使用说明.md" target="_blank" rel="noopener">查看详细文档</a>
+                <span style="margin: 0 8px; color: #cbd5e0;">|</span>
+                Powered by JRebel
+            </div>
         </div>
     </div>
+    
+    <script>
+        (function () {
+            var host = location.hostname;
+            document.getElementById('activation-host').textContent = (!host || host === 'localhost' || host === '127.0.0.1') ? '127.0.0.1' : host;
+        })();
+    </script>
 </body>
 </html>
